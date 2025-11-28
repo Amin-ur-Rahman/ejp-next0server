@@ -55,7 +55,20 @@ async function run() {
       }
     });
 
-    console.log("✅ Connected to MongoDB");
+    app.post("/add-product", async (req, res) => {
+      try {
+        // console.log("url was hitted");
+
+        const product = req.body;
+        const result = await productsColl.insertOne(product);
+        return res.status(201).send({ success: true, message: result });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("request error");
+      }
+    });
+
+    console.log(" Connected to MongoDB");
   } catch (error) {
     console.error("DB error:", error);
   }
