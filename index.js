@@ -60,8 +60,10 @@ async function run() {
         // console.log("url was hitted");
 
         const product = req.body;
-        const result = await productsColl.insertOne(product);
-        return res.status(201).send({ success: true, message: result });
+        await productsColl.insertOne(product);
+        return res
+          .status(201)
+          .send({ success: true, message: "Product was added successfully!" });
       } catch (error) {
         console.error(error);
         res.status(500).send("request error");
